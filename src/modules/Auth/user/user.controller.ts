@@ -2,29 +2,34 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { UserService } from './user.service';
 import { forgotPasswordDto, loginUserDto  , registerUserDto} from './dto/create-user.dto';
 import {  isexsistingEmail} from './guards/isexistingEmail';
+import {emailNotFound} from "./guards/emailNotFound"
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post("login")
+  @UseGuards(emailNotFound)
   create(@Body() createUserDto: loginUserDto) {
-    return this.userService.create(createUserDto);
+    return this.userService.loginUser(createUserDto);
   }
 
   @Post("register")
   @UseGuards(isexsistingEmail)
   register(@Body() registerUserDto: registerUserDto) {
+
     return this.userService.createUser(registerUserDto);
   }
 
-  @Post('verify/:token')
-  findOne(@Param('token') id: string) {
-    return this.userService.findOne(+id);
+  @Get('verify/:token')
+  findOne(@Param('token') token: string) {
+    return this.userService.verifyAccount(token);
+
   }
 
   @Post('forgot-password')
-  update( @Body() updateUserDto: forgotPasswordDto) {
-    return this.userService.update( updateUserDto);
+  @UseGuards(emailNotFound)
+  update( @Body() forgotUserDto: forgotPasswordDto) {
+    return this.userService.forgotPassword( forgotUserDto);
   }
 
   @Post('change-password')

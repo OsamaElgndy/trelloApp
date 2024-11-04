@@ -11,3 +11,12 @@ export const TypeOrmConfig = {
 
 
 export  const SALT_ROUND = process.env.SALT_ROUND
+
+export const JWT_SECRET = process.env.JWT_SECRET
+
+export const Email_SERVICE = {
+  EMAIL_ACCOUNT: process.env.EMAIL_ACCOUNT,
+  PASSWORD_EMAIL: process.env.PASSWORD_EMAIL
+}
+
+export const BACE_URL = process.env.BACE_URL
