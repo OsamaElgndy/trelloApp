@@ -8,7 +8,6 @@ export class QrCodeService {
    const qrCodeimge = await qrcode.toFile("qr-code.png", data,
     function (err) {
      if (err) throw err
-     console.log('done')
     }
 
    );
