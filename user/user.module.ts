@@ -4,9 +4,9 @@ import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
-import {JWT_SECRET} from '../../../common/constants/constants';
-import { QrCodeService } from '../../../common/constants/qrCode/qr-code.service';
-import { SendEmailService } from '../../../common/constants/sendEmail/send_email.service';
+import {JWT_SECRET} from '../src/common/constants/constants';
+import { QrCodeService } from '../src/common/constants/qrCode/qr-code.service';
+import { SendEmailService } from '../src/common/constants/sendEmail/send_email.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]) ,

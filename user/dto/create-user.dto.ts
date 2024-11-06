@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty , IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty , IsString, Length, Matches, ValidateIf } from 'class-validator';
 export class loginUserDto {
 
  @IsString()
@@ -44,10 +44,21 @@ export class forgotPasswordDto {
 export class changePasswordDto {
   @IsString() 
   @IsNotEmpty()
-  oldPassword: string;
+  @Length(5, 5, { message: 'OTP  length must be  5 characters' })
+  OTP: string;
 
   @IsString() 
   @IsNotEmpty()
   newPassword: string;
+
+
+
+  @IsString() 
+  @IsNotEmpty()
+  email: string;
+  
+  @IsString() 
+  @IsNotEmpty()
+  confirmPassword: string;
   
 }

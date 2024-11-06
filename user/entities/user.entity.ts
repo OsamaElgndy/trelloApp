@@ -21,6 +21,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({length: 5 , nullable: true})
+  codeOTP?: string
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, +SALT_ROUND);
@@ -32,6 +35,7 @@ export class User {
       
     );
   }
+
  }
  
 
