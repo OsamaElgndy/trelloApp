@@ -1,6 +1,8 @@
 import { SALT_ROUND } from 'src/common/constants/constants';
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToOne, JoinColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt'
+import {  ActiveToken } from './activeToken.entity';
 @Entity()
 
 export class User {
@@ -24,6 +26,12 @@ export class User {
   @Column({length: 5 , nullable: true})
   codeOTP?: string
 
+
+
+  @OneToOne(() => ActiveToken, (profile) => profile.user)
+  @JoinColumn()
+  activeToken: ActiveToken;
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, +SALT_ROUND);
@@ -36,4 +44,8 @@ export class User {
     );
   }
 
+
+
  }
+
+ 

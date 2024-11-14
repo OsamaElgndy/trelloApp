@@ -107,7 +107,7 @@ export class UserService {
     return { message: "Password Reset Successfully", status: 201 };
   }
   async findAllUsers(){
-    const users = await this.usersRepository.find()
+    const users = await this.usersRepository.find({select:{activeToken:{id: true}}})
     return users
 
 

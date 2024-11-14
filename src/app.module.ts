@@ -5,9 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfig } from './common/constants/constants';
 import { UserModule } from './modules/Auth/user/user.module';
 import  * as path from 'path';
-import { User } from './modules/Auth/user/entities/user.entity';
 
-console.log(TypeOrmConfig);
 
 
 @Module({
@@ -23,7 +21,6 @@ console.log(TypeOrmConfig);
       password: TypeOrmConfig.password,
       database: TypeOrmConfig.database,
       entities: [
-        // User
       path.join(__dirname, '**','**', '*.entity.{ts,js}'),
 
       ],
