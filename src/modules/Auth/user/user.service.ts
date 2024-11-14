@@ -1,12 +1,12 @@
-import { ConflictException, Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {  Injectable, NotAcceptableException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { changePasswordDto, forgotPasswordDto, loginUserDto, registerUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { QrCodeService } from '../src/common/constants/qrCode/qr-code.service';
+import {User} from "./entities/user.entity"
+import { QrCodeService } from '../../../common/constants/qrCode/qr-code.service';
 import { JwtService } from '@nestjs/jwt';
-import { SendEmailService } from '../src/common/constants/sendEmail/send_email.service';
-import { TemplateErorr, TemplateSuccess } from '../src/common/constants/sendEmail/template';
+import { SendEmailService } from '../../../common/constants/sendEmail/send_email.service';
+import { TemplateErorr, TemplateSuccess } from '../../../common/constants/sendEmail/template';
 @Injectable()
 export class UserService {
   constructor(
@@ -105,5 +105,11 @@ export class UserService {
     }
      await this.usersRepository.update(user.id, { password: newPassword ,codeOTP: null })
     return { message: "Password Reset Successfully", status: 201 };
+  }
+  async findAllUsers(){
+    const users = await this.usersRepository.find()
+    return users
+
+
   }
 }

@@ -7,6 +7,13 @@ import { emailNotFound } from "./guards/emailNotFound"
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
+
+  @Get("getAllUsers")
+    getAllUsers(){
+
+      return this.userService.findAllUsers();
+    }
+  
   @Get('verify/:token')
   verify(@Param('token') token: string) {
     console.log(token ,"token");

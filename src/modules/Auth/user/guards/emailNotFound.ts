@@ -1,10 +1,5 @@
-
-
-
-
 import { Injectable, CanActivate, ExecutionContext, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NotFoundError, Observable } from 'rxjs';
 import { User } from '../entities/user.entity';
 import { Repository } from 'typeorm';
 
