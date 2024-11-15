@@ -27,6 +27,17 @@ export class UserService {
     if (!isMatch) {
       throw new NotFoundException("Email not found or in-vaild Password")
     }
+    const codeActiveToken = await this.usersRepository.find({
+      where: { id: user.id },
+      select: { activeToken: { codeToken: true } }
+    })
+    console.log(codeActiveToken,"codeActiveToken ...............................");
+
+    const updateCodeToken = await this.usersRepository.update(user.id, { codeToken:codeActiveToken[0].activeToken.codeToken  })
+    
+    console.log( updateCodeToken,"updateCodeToken**************");
+ 
+     const updatedActiveToken = await this.usersRepository.update(user.id, { isActive: true })
     //   cerate payload = 
     const payload = {
       email: user.email,
@@ -63,7 +74,6 @@ export class UserService {
       const { email, firstName } = decode
       const user = await this.usersRepository.findOne({ where: { email: email } })
       const updatedUser = await this.usersRepository.update(user.id, { isActive: true })
-      console.log(updatedUser, "updatedUser" , email , firstName , TemplateSuccess(firstName, email) ); ;
       
       return `${TemplateSuccess(firstName, email)}`;
     } catch (error) {
@@ -86,12 +96,13 @@ export class UserService {
     //  hash code
     this.usersRepository.update(user.id, { isActive: false , codeOTP: code })
 
-    console.log(qrCode);
     // send email
     this.SendEmailService.mainOTP(code)
 
-
-    return {message: "Please check your email to reset your password" , status: 201 };
+       const  updateCodeToken  =   await this.usersRepository.update(user.id, {  activeToken:{codeToken:Math.random().toString(36).slice(-5)}})
+     console.log(updateCodeToken,"updateCodeToken");
+     
+       return {message: "Please check your email  , we have sent you an OTP" , status: 201 };
   }
 
   async resetPassword(changePasswordDto: changePasswordDto) {
@@ -103,11 +114,14 @@ export class UserService {
       if (user.codeOTP !== OTP) {
         throw new UnauthorizedException("OTP not match ,Please try again and Check your email OTP")
     }
+
      await this.usersRepository.update(user.id, { password: newPassword ,codeOTP: null })
     return { message: "Password Reset Successfully", status: 201 };
   }
   async findAllUsers(){
-    const users = await this.usersRepository.find({select:{activeToken:{id: true}}})
+    const users = await this.usersRepository.find({ 
+        relations: ["activeToken"]
+    })
     return users
 
 

@@ -63,7 +63,7 @@ export const TemplateSendEmail = (token: string, name: string) => {
       <div class="qrcode">
         <img src='./qr-code.png' alt="QR Code">
       </div>
-      <a href=${`${BACE_URL}${token}`} target="_blank"> 
+      <a href=${`${BACE_URL}+"auth/user/"+${token}`} target="_blank"> 
       
       
       <button class="button">Confirm Email  </button>

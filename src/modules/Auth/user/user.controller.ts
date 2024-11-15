@@ -16,7 +16,6 @@ export class UserController {
   
   @Get('verify/:token')
   verify(@Param('token') token: string) {
-    console.log(token ,"token");
     return this.userService.verifyAccount(token);
   }
   @Post("login")

@@ -19,7 +19,6 @@ export class isexsistingEmail implements CanActivate {
   
 
     const user = await this.dataBase.findOne({ where: { email: email } });
-     console.log(user , "user")
     
      if(user){
     throw new UnauthorizedException('Email already exists'); 
