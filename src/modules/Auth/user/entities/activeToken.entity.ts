@@ -21,7 +21,7 @@ export class ActiveToken {
   userId: number;
 
 
-  @OneToOne(() => User, user)
+  @OneToOne(() => User, user => user.activeToken)
   user: User;
 
   @Column({default: null})
