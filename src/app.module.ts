@@ -1,35 +1,28 @@
+import * as path from 'path';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TypeOrmConfig } from './common/constants/constants';
-import { UserModule } from './modules/Auth/user/user.module';
-import  * as path from 'path';
-
-
-
+import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 @Module({
-
-
   imports: [
-
-    TypeOrmModule.forRoot({
-      type: TypeOrmConfig.type as any,
-      host: TypeOrmConfig.host,
-      port: +TypeOrmConfig.port,
-      username: TypeOrmConfig.username,
-      password: TypeOrmConfig.password,
-      database: TypeOrmConfig.database,
-      entities: [
-      path.join(__dirname, '**','**', '*.entity.{ts,js}'),
-
-      ],
-
-      synchronize: TypeOrmConfig.synchronize === "development"? true : false,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
-    UserModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      entities: [path.join(__dirname, '**', '*.entity.{ts,js}')],
+      synchronize: process.env.NODE_ENV === 'development' ? true : false,
+    }),
+    AuthModule,
+    UsersModule,
   ],
-  controllers: [AppController  ],
-  providers: [AppService  ],
+  controllers: [],
+  providers: [],
 })
-export class AppModule { }
+export class AppModule {}
