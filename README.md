@@ -1,3 +1,66 @@
+# TrelloApp
+
+## Overview
+
+TrelloApp is a project management tool built with **Node.js**, **Nest.js**, **TypeScript**, **TypeORM**, **Docker**, and **PostgreSQL**. The application allows users to manage tasks in boards and lists, similar to the Trello app. It provides robust RESTful APIs for seamless task creation, updating, and deletion. The application ensures secure authentication with **JWT (JSON Web Tokens)**, allowing users to register, log in, and manage their tasks securely.
+
+## Features
+
+- **Task and List Management:** Users can create, update, delete, and move tasks between different lists in a board.
+- **Secure Authentication:** Integrated JWT for user registration, login, and task management.
+- **RESTful API:** Well-defined API routes for managing tasks, lists, and boards.
+- **Database Integration:** PostgreSQL as the database, with **TypeORM** to interact with the data.
+- **Dockerized Application:** The app is containerized using Docker for easy deployment and scalability.
+- **Efficient Data Handling:** Optimized data interaction for a smooth user experience with minimal latency.
+
+## Technologies Used
+
+- **Node.js:** JavaScript runtime for server-side programming.
+- **Nest.js:** A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
+- **TypeScript:** A statically typed superset of JavaScript.
+- **TypeORM:** An ORM for TypeScript and JavaScript (ES7, ES6, ES5).
+- **Docker:** Used for containerization, making the app easy to deploy in different environments.
+- **PostgreSQL:** Relational database for storing user data, tasks, boards, and lists.
+- **JWT (JSON Web Tokens):** Used for secure authentication and authorization.
+
+## API Endpoints
+
+### Authentication
+
+- **POST `/auth/register`** - Register a new user
+- **POST `/auth/login`** - Log in with JWT authentication
+
+### Boards
+
+- **GET `/boards`** - Retrieve all boards
+- **POST `/boards`** - Create a new board
+- **GET `/boards/:boardId`** - Get a specific board by ID
+- **PUT `/boards/:boardId`** - Update a board's information
+- **DELETE `/boards/:boardId`** - Delete a specific board
+
+### Lists
+
+- **GET `/boards/:boardId/lists`** - Retrieve all lists in a board
+- **POST `/boards/:boardId/lists`** - Create a new list in a board
+- **GET `/lists/:listId`** - Get a specific list by ID
+- **PUT `/lists/:listId`** - Update a list's information
+- **DELETE `/lists/:listId`** - Delete a specific list
+
+### Tasks
+
+- **GET `/lists/:listId/tasks`** - Retrieve all tasks in a list
+- **POST `/lists/:listId/tasks`** - Create a new task in a list
+- **GET `/tasks/:taskId`** - Get a specific task by ID
+- **PUT `/tasks/:taskId`** - Update a task's information
+- **DELETE `/tasks/:taskId`** - Delete a specific task
+
+## Docker Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/TrelloApp.git
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
